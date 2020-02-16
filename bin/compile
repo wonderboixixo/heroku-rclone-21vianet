@@ -37,6 +37,7 @@ cd rclone
 cp "$CACHE_DIR/$FILE" .
 unzip -qqj "$FILE"
 rm -rf "$FILE"
+chmod 777 rclone
 
 echo "exporting PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/rclone.sh"
