@@ -45,6 +45,45 @@ mkdir -p "$(dirname "$PROFILE_PATH")"
 echo 'export PATH="$PATH:${HOME}/vendor/rclone"' >> $PROFILE_PATH
 echo "Rclone installed"  | indent
 
+###### install Gclone ##########
+echo "-----> Installing gclone"
+BUILD_DIR=$1
+CACHE_DIR=$2
+VENDOR_DIR="vendor"
+FILE="gclone_1.51.0-mod1.3.1_Linux_x86_64.gz"
+DOWNLOAD_URL="https://github.com/donwa/gclone/releases/download/v1.51.0-mod1.3.1/gclone_1.51.0-mod1.3.1_Linux_x86_64.gz"
+
+mkdir -p "$CACHE_DIR"
+
+if ! [ -e "$CACHE_DIR/$FILE" ]; then
+  echo "-----> Fetching Latest Gclone binaries at ${DOWNLOAD_URL}" | indent
+  wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
+else
+  filestr=$(find . -name "$CACHE_DIR/$FILE" -mtime +1 -print)
+  if [ "$filestr" = "" ]; then
+    echo "-----> cache Expired, Fetching Latest Gclone at ${DOWNLOAD_URL}" | indent
+    wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
+  else
+    echo "build using cached source"  | indent
+  fi
+fi
+
+cd "$BUILD_DIR"
+mkdir -p "$VENDOR_DIR"
+cd "$VENDOR_DIR"
+mkdir -p gclone
+cd gclone
+cp "$CACHE_DIR/$FILE" .
+unzip -qqj "$FILE"
+rm -rf "$FILE"
+chmod 777 gclone
+
+echo "exporting PATH" | indent
+PROFILE_PATH="$BUILD_DIR/.profile.d/gclone.sh"
+mkdir -p "$(dirname "$PROFILE_PATH")"
+echo 'export PATH="$PATH:${HOME}/vendor/gclone"' >> $PROFILE_PATH
+echo "Gclone installed"  | indent
+
 ###### install aria2 ##########
 echo "-----> Installing Aria2"
 
