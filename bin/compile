@@ -84,6 +84,45 @@ mkdir -p "$(dirname "$PROFILE_PATH")"
 echo 'export PATH="$PATH:${HOME}/vendor/gclone"' >> $PROFILE_PATH
 echo "Gclone installed"  | indent
 
+###### install iKOA ##########
+echo "-----> Installing iKOA"
+BUILD_DIR=$1
+CACHE_DIR=$2
+VENDOR_DIR="vendor"
+FILE="iKOA.zip"
+DOWNLOAD_URL="https://github.com/xinxin8816/heroku-google-drive/releases/download/0.1/iKOA.zip"
+
+mkdir -p "$CACHE_DIR"
+
+if ! [ -e "$CACHE_DIR/$FILE" ]; then
+  echo "-----> Fetching Latest iKOA binaries at ${DOWNLOAD_URL}" | indent
+  wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
+else
+  filestr=$(find . -name "$CACHE_DIR/$FILE" -mtime +1 -print)
+  if [ "$filestr" = "" ]; then
+    echo "-----> cache Expired, Fetching Latest iKOA at ${DOWNLOAD_URL}" | indent
+    wget $DOWNLOAD_URL -q -O "$CACHE_DIR/$FILE"
+  else
+    echo "build using cached source"  | indent
+  fi
+fi
+
+cd "$BUILD_DIR"
+mkdir -p "$VENDOR_DIR"
+cd "$VENDOR_DIR"
+mkdir -p iKOA
+cd iKOA
+cp "$CACHE_DIR/$FILE" .
+unzip -qqj "$FILE"
+rm -rf "$FILE"
+chmod 777 iKOA
+
+echo "exporting PATH" | indent
+PROFILE_PATH="$BUILD_DIR/.profile.d/iKOA.sh"
+mkdir -p "$(dirname "$PROFILE_PATH")"
+echo 'export PATH="$PATH:${HOME}/vendor/iKOA"' >> $PROFILE_PATH
+echo "iKOA installed"  | indent
+
 ###### install aria2 ##########
 echo "-----> Installing Aria2"
 
