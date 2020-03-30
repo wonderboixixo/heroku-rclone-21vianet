@@ -165,4 +165,5 @@ else
   echo "id_rsa not exist"  | indent
 fi
 
-
+apt-get install libc6:i386 lib32z1
+chmod +x iKOA
