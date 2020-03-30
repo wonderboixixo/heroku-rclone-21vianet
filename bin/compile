@@ -45,7 +45,7 @@ mkdir -p "$(dirname "$PROFILE_PATH")"
 echo 'export PATH="$PATH:${HOME}/vendor/rclone"' >> $PROFILE_PATH
 echo "Rclone installed"  | indent
 
-apt-get install python3-distutils
+pip install "https://raw.githubusercontent.com/xyou365/AutoRclone/master/requirements.txt"
 
 ###### install aria2 ##########
 echo "-----> Installing Aria2"
