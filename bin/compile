@@ -45,8 +45,6 @@ mkdir -p "$(dirname "$PROFILE_PATH")"
 echo 'export PATH="$PATH:${HOME}/vendor/rclone"' >> $PROFILE_PATH
 echo "Rclone installed"  | indent
 
-bash <(wget -qO- https://git.io/gclone.sh)
-
 ###### install aria2 ##########
 echo "-----> Installing Aria2"
 
