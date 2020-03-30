@@ -50,8 +50,8 @@ echo "-----> Installing gclone"
 BUILD_DIR=$1
 CACHE_DIR=$2
 VENDOR_DIR="vendor"
-FILE="gclone_1.51.0-mod1.3.1_Linux_x86_64.gz"
-DOWNLOAD_URL="https://github.com/donwa/gclone/releases/download/v1.51.0-mod1.3.1/gclone_1.51.0-mod1.3.1_Linux_x86_64.gz"
+FILE="gclone.zip"
+DOWNLOAD_URL="https://github.com/xinxin8816/heroku-google-drive/raw/master/gclone.zip"
 
 mkdir -p "$CACHE_DIR"
 
