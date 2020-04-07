@@ -1,20 +1,20 @@
 
 
-# Heroku Google Drive
-Using Rclone and Aria2, even RAR on Heroku.
+# Heroku Rclone 21vianet
+Using Rclone with 21vianet mod and Aria2, even RAR on Heroku.
 
 ## Installation
 Create new app
 
 ```
-heroku create myapp -b https://github.com/xinxin8816/heroku-google-drive.git
+heroku create myapp -b https://github.com/xinxin8816/heroku-rclone-21vianet.git
 heroku git:clone -a myapp
 ```
 
 Existing app, use: `add|set`
 
 ```
-heroku buildpacks:set https://github.com/xinxin8816/heroku-google-drive.git -a myapp
+heroku buildpacks:set https://github.com/xinxin8816/heroku-rclone-21vianet.git -a myapp
 ```
 
 go to `myapp` directory, create or copy `rclone.conf` and winrar registraton key `.rarreg.key` (optional) then commit the change
