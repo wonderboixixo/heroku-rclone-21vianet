@@ -1,6 +1,0 @@
-{
-	"name": "Heroku Rclone 21vianet. Heroku Rclone 世纪互联版",
-	"description": "Run rclone/aria2c/unrar on heroku",
-	"repository": "https://github.com/xinxin8816/heroku-rclone-21vianet",
-	"keywords": ["rclone"],
-}
