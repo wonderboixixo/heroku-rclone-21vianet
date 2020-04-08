@@ -1,24 +1,30 @@
+# Heroku-Rclone-21vianet. Heroku-Rclone 世纪互联版
+Using Rclone with 21vianet mod and Aria2, even UNRAR easily on Heroku.<br>
+在 Heroku 上轻松运行 Rclone、Aria2，甚至是 UNRAR。
 
+Only useing Aria2 and dislike command terminal? Try this [Heroku AriaNG 21vianet](https://github.com/xinxin8816/heroku-ariang-21vianet)<br>
+仅仅想用 Aria2 下载并且不喜欢命令行？试试这个 [Heroku-AriaNG 世纪互联版](https://github.com/xinxin8816/heroku-ariang-21vianet)
 
-# Heroku Rclone 21vianet
-Using Rclone with 21vianet mod and Aria2, even RAR on Heroku.<br>
-Only useing Aria2 and dislike command terminal? Try this [AriaNG on Heroku](https://github.com/xinxin8816/heroku-aria2c-21vianet)
-
-## Installation
-Create new app
+## Deploy
+1. Create new app
 
 ```
 heroku create myapp -b https://github.com/xinxin8816/heroku-rclone-21vianet.git
 heroku git:clone -a myapp
-```
 
-Existing app, use: `add|set`
-
-```
+# or useing existed app
 heroku buildpacks:set https://github.com/xinxin8816/heroku-rclone-21vianet.git -a myapp
 ```
 
-go to `myapp` directory, create or copy `rclone.conf` and winrar registraton key `.rarreg.key` (optional) then commit the change
+2. Setup Rclone by following offical instructions: https://rclone.org/docs/. Chinese users setup with 21vianet peach.<br>
+You can find your config from there.
+
+```
+Windows: %userprofile%\.config\rclone\rclone.conf
+Linux: $HOME/.config/rclone/rclone.conf
+```
+
+3. Go to `myapp` directory, copy `rclone.conf` and winrar registraton key `.rarreg.key` (optional) then commit the change.
 
 ```
 cd myapp
@@ -26,32 +32,55 @@ git add .
 git commit -am "add config"
 git push heroku master
 ```
-if you don't have `rclone.conf` download `rclone` and run locally `rclone config` generated config file will be
 
-```
-Windows: %userprofile%\.config\rclone\rclone.conf
-Linux: $HOME/.config/rclone/rclone.conf
-```
 ## Usage
-**Open remote Heroku**
+### Open Terminal
 ```
 cd myapp
 heroku run bash
 # or
-heroku run bash --remote origin
+heroku run bash --a myapp
 ```
 
-**Upload to Google Drive**
+### Rclone
+Learn more from [Rclone Docs](https://rclone.org/commands/)
 
-assume `gdrive_config` is your Google drive config name that generated above 
+**Upload file to Google Drive**
 ```
 rclone -v copy local_dir gdrive_config:remote_drive_dir
 ```
 
+**View file on Google drive**
+```
+rclone lsd gdrive_config:remote_drive_dir
+```
+
+### Aria2
+Learn more from [Aria2 Docs](http://aria2.github.io/manual/en/html/aria2c.html)
+
+**Download a file**
+```
+aria2c -x4 http://host/file.rar
+```
+`-x4` mean download using 4 connection
+
+### UNRAR
+Learn more from [UNRAR Docs](https://pypi.org/project/unrar/)
+
+**Extract `.rar` or `.zip` Compressed file**
+```
+# to current directory
+unrar e file.rar/zip
+
+# with full path
+unrar x file.rar/zip
+```
+
+## Tips
+
 **Speed up upload**
 
 If you want to upload many files smaller than 8mb increase only `--transfers` option
-
 ```
 rclone -v --transfers=16 --drive-chunk-size=16384k --drive-upload-cutoff=16384k copy local_dir gdrive_config:remote_drive_dir
  ```
@@ -62,35 +91,3 @@ rclone -v --transfers=16 --drive-chunk-size=16384k --drive-upload-cutoff=16384k 
 `--drive-upload-cutoff=N` should be same with chunk size
 
 `-v` option to view upload progress stats 
-
-**view file on Google drive**
-```
-rclone lsd gdrive_config:remote_drive_dir
-```
-view option:
-
-`lsd` only show file in current directory
-
-`ls` show file including in subdirectory (recursvely)
-
-## Bonus
-**Download file using `Aria2`**
-
-Aria2 is command-line download accelerator
-```
-aria2c -x4 http://host/file.rar
-```
-`-x4` mean download using 4 connection
-
-**To extract `.rar` file**
-
-to current directory
-```
-unrar e file.rar
-```
-
-with full path
-
-```
-unrar x file.rar
-```
