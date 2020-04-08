@@ -1,7 +1,8 @@
 
 
 # Heroku Rclone 21vianet
-Using Rclone with 21vianet mod and Aria2, even RAR on Heroku.
+Using Rclone with 21vianet mod and Aria2, even RAR on Heroku.<br>
+Only useing Aria2 and dislike command terminal? Try this [AriaNG on Heroku](https://github.com/xinxin8816/heroku-aria2c-21vianet)
 
 ## Installation
 Create new app
